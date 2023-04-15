@@ -1,0 +1,4 @@
+1. conda list
+2. conda info numpy
+3. conda remove numpy
+4. conda install numpy
