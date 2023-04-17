@@ -1,4 +1,5 @@
 1. conda list
-2. conda info numpy
+2. conda search -i numpy
 3. conda remove numpy
 4. conda install numpy
+5. conda list -e
