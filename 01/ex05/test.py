@@ -30,42 +30,42 @@ if __name__ == "__main__":
 	print(jhon.value)
 
 
-	john = Account(
-		'William John',
-		zip='100-064',
-		brother="heyhey",
-		value=6460.0,
-		ref='58ba2b9954cd278eda8a84147ca73c87',
-		info=None,
-		other='This is the vice president of the corporation',
-		lol = "hihi"
-	)
-	bank.add(john)
-	bank.fix_account(john)
-	bank.fix_account('William John')
-	print(john.__dict__.items())
-
-
-	john2 = Account(
-		'William John',
-		zip='100-064',
-		rother="heyhey",
-		value=6460.0,
-		ref='58ba2b9954cd278eda8a84147ca73c87',
-		info=None,
-		other='This is the vice president of the corporation',
-	)
-	bank.add(john2)
-	print("fix:", bank.fix_account(john2))
-
-	john3 = Account(
-		'William John',
-		zip='100-064',
-		rother="heyhey",
-		ref='58ba2b9954cd278eda8a84147ca73c87',
-		info=None,
-		other='This is the vice president of the corporation',
-		lol = "lolilol"
-	)
-	bank.add(john3)
-	print("fix:", bank.fix_account(john3))
+#	john = Account(
+#		'William John',
+#		zip='100-064',
+#		brother="heyhey",
+#		value=6460.0,
+#		ref='58ba2b9954cd278eda8a84147ca73c87',
+#		info=None,
+#		other='This is the vice president of the corporation',
+#		lol = "hihi"
+#	)
+#	bank.add(john)
+#	bank.fix_account(john)
+#	bank.fix_account('William John')
+#	print(john.__dict__.items())
+#
+#
+#	john2 = Account(
+#		'William John',
+#		zip='100-064',
+#		rother="heyhey",
+#		value=6460.0,
+#		ref='58ba2b9954cd278eda8a84147ca73c87',
+#		info=None,
+#		other='This is the vice president of the corporation',
+#	)
+#	bank.add(john2)
+#	print("fix:", bank.fix_account(john2))
+#
+#	john3 = Account(
+#		'William John',
+#		zip='100-064',
+#		rother="heyhey",
+#		ref='58ba2b9954cd278eda8a84147ca73c87',
+#		info=None,
+#		other='This is the vice president of the corporation',
+#		lol = "lolilol"
+#	)
+#	bank.add(john3)
+#	print("fix:", bank.fix_account(john3))

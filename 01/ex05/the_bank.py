@@ -120,11 +120,11 @@ class Bank(object):
 		@return True if success, False if an error occured
 		"""
 
-		if not isinstance(name, str):
+		if not (isinstance(name, str) or isinstance(name, Account)):
 			return False
 		account = None
 		for acc in self.accounts:
-			if acc.name == name:
+			if acc.name == name or acc == name:
 				account = acc
 		if account == None:
 			return False
@@ -140,16 +140,20 @@ class Bank(object):
 				#print(account.__dict__[key], "deleted")
 				del account.__dict__[key]
 
-		if len([attr for attr in account.__dict__.keys() if attr.startswith('zip') or attr.startswith('addr')]) > 0:
+		if len([attr for attr in account.__dict__.keys() if attr.startswith('zip') or attr.startswith('addr')]) == 0:
 			return False
 
 		if not all(hasattr(account, attr) for attr in ['name', 'id', 'value']):
 			return False 
 
-		try:
-			account.__dict__['name'] = str(account.__dict__['name'])
-		except:
-			return False
+		if not isinstance(account.name, str):
+			return False 
+
+		if not isinstance(account.id, int):
+			return False 
+
+		if not isinstance(account.value, (int, float)):
+			return False 
 
 		if len(account.__dict__) % 2 == 0:
 			return False 
