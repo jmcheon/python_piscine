@@ -28,8 +28,14 @@ function when_conda_exist {
 		conda create --name 42AI-$USER python=3.7 jupyter numpy pandas pycodestyle -y
 	fi
 }
+
 function set_conda {
 	MINICONDA_PATH="/goinfre/$USER/miniconda3"
+	if [ -d "/goinfre" ]; then
+		MINICONDA_PATH="/goinfre/$USER/miniconda3"
+	else
+		MINICONDA_PATH="/home/$USER/miniconda3/"
+	fi
 	CONDA=$MINICONDA_PATH"/bin/conda"
 	PYTHON_PATH=$(which python)
 	REQUIREMENTS="jupyter numpy pandas pycodestyle"
