@@ -150,10 +150,6 @@ class Bank(object):
 			account.__dict__['name'] = str(account.__dict__['name'])
 		except:
 			return False
-		try:
-			account.__dict__['id'] = id(account.__dict__['id'])
-		except:
-			return False
 
 		if len(account.__dict__) % 2 == 0:
 			return False 
