@@ -1,4 +1,5 @@
 #!/bin/bash
+
 function which_dl {
 # If operating system name contains Darwnin: MacOS. Else Linux
 	if uname -s | grep -iqF Darwin; then
@@ -41,6 +42,12 @@ function set_conda {
 	if [ $? == 0 ] ; then
 		printf "\e[32mOK\e[0m\n"
 		when_conda_exist
+		printf "\e[33mLaunch the following command or restart your shell:\e[0m\n"
+		if [ $MY_SHELL == "zsh" ]; then
+			printf "\tsource ~/.zshrc\n"
+		else
+			printf "\tsource ~/.bash_profile\n"
+		fi
 		return
 	fi
 	printf "\e[31mKO\e[0m\n"
