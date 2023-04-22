@@ -40,7 +40,7 @@ class TinyStatistician:
 		if not isinstance(x, list) or len(x) == 0:
 			return None
 		mean = self.mean(x)
-		suqared_diff_sum = 0
+		suqared_diff_sum = 0.0
 		for num in x:
 			suqared_diff_sum += (num - mean) ** 2
 		return suqared_diff_sum / len(x)
