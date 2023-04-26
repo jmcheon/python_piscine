@@ -5,6 +5,10 @@ class ScrapBooker:
 	"""
 		crop, thin, juxtapose, mosaic.
 	"""
+
+	def __init__(self) -> None:
+		pass
+
 	def check_shape(self, tlp):
 		if not isinstance(tlp, tuple) or len(tlp) != 2 or not all(isinstance(n, int) for n in tlp):
 			return False
