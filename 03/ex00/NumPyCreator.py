@@ -26,24 +26,30 @@ class NumPyCreator:
 		"""takes an iterable and returns an array which contains all its elements."""
 		return np.array(list(itr))
 
-	def from_shape(self, shape, value):
+	def from_shape(self, shape, value=0):
 		"""
 		returns an array filled with the same value.
 		The first argument is a tuple which specifies the shape of the array, and the second
 		argument specifies the value of the elements. This value must be 0 by default.
 		"""
-		return np.array(tpl)
+		if not isinstance(shape, tuple) or all(n < 0 for n in shape):
+			return None
+		return np.full(shape, value, dtype="float")
 
 	def random(self, shape):
 		"""
 		returns an array filled with random values. It takes as an
 		argument a tuple which specifies the shape of the array.
 		"""
-		return np.array(tpl)
+		if not isinstance(shape, tuple):
+			return None
+		return np.random.random(shape)
 
 	def identity(self, n):
 		"""returns an array representing the identity matrix of size n"""
-		return np.array(tpl)
+		if not isinstance(n, int) or n < 0:
+			return None
+		return np.identity(n)
 
 
 if __name__ == "__main__":
@@ -55,6 +61,7 @@ if __name__ == "__main__":
 	print(npc.from_tuple(("a", "b", "c")))
 	print(npc.from_tuple(["a", "b", "c"]))
 	print(npc.from_iterable(range(5)))
+	shape=(3,5)
 	print(npc.from_shape(shape))
 	print(npc.random(shape))
 	print(npc.identity(4))
