@@ -1,5 +1,8 @@
 import numpy as np
 from ImageProcessor import ImageProcessor
+from PIL import Image
+
+
 
 class ColorFilter:
 	"""
@@ -28,9 +31,9 @@ class ColorFilter:
 		This function should not raise any Exception.
 		"""
 		if not isinstance(array, np.ndarray):
-			print("none")
 			return None
 		inverted_array = np.copy(array)
+		# to invert only RGB channels
 		inverted_array[:, :, :3] = 1 - inverted_array[:, :, :3]
 		return inverted_array
 
@@ -52,6 +55,14 @@ class ColorFilter:
 		-------
 		This function should not raise any Exception.
 		"""
+		if not isinstance(array, np.ndarray):
+			return None
+		# create an array of zeros with the same shape of the original array
+		filtered_array = np.zeros(array.shape)
+		# copy only BA from RGBA
+		filtered_array[:, :, 2:] = np.copy(array[:, :, 2:])
+		return filtered_array
+
 	def to_green(self, array):
 		"""
 
@@ -70,6 +81,13 @@ class ColorFilter:
 		-------
 		This function should not raise any Exception.
 		"""
+		if not isinstance(array, np.ndarray):
+			return None
+		filtered_array = np.copy(array)
+		# copy only GA from RGBA
+		filtered_array[..., : 3:2] = np.copy(array[..., : 3:2]) * 0
+		return filtered_array
+
 	def to_red(self, array):
 		"""
 
@@ -139,10 +157,15 @@ if __name__ == "__main__":
 	imp = ImageProcessor()
 	#arr = imp.load("./42AI.png")
 	arr = imp.load("./elon_canaGAN.png")
+	#image = Image.open("./elon_canaGAN.png")
+	#print(image.mode)
 	#with np.printoptions(threshold=np.inf):
 	#	print(arr)
 	#print("\n=====================================\n")
 	cf = ColorFilter()
 	#arr = cf.invert(arr)
 	#print(arr)
+	imp.display(arr)
+	#arr = cf.to_blue(arr)
+	arr = cf.to_green(arr)
 	imp.display(arr)
