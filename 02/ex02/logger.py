@@ -4,8 +4,8 @@ import os
 
 def log(func):
 	def wrapper(*args, **kwargs):
-		result = func(*args, **kwargs)
 		start_time = time.time()
+		result = func(*args, **kwargs)
 		exec_time = time.time() - start_time
 		user = os.environ.get('USER', 'unknown')
 		if exec_time > 0.001:

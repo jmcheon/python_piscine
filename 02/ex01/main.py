@@ -2,7 +2,6 @@ def what_are_the_vars(*args, **kwargs):
 	"""
 	...
 	"""
-	# ... Your code here ...
 	obj = ObjectC()
 	for i, arg in enumerate(args):
 		setattr(obj, f"var_{i}", arg)
@@ -11,6 +10,7 @@ def what_are_the_vars(*args, **kwargs):
 			return None
 		setattr(obj, key, value)
 	return obj
+
 class ObjectC(object):
 
 	def __init__(self):

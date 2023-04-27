@@ -10,7 +10,6 @@ def ft_reduce(function_to_apply, iterable):
 	A value, of same type of elements in the iterable parameter.
 	None if the iterable can not be used by the function.
 	"""
-	# ... Your code here ...
 	if not (isinstance(iterable, Iterable) or iterable):
 		raise TypeError("Invalid input: second argument should be an iterable argument")
 

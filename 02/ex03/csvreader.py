@@ -31,7 +31,6 @@ class CsvReader():
 		Return:
 		nested list (list(list, list, ...)) representing the data.
 		"""
-		# ... Your code here ...
 		start = self.skip_top
 		end = len(self.data) - self.skip_bottom
 		if self.header:
@@ -44,7 +43,6 @@ class CsvReader():
 		list: representing the data (when self.header is True).
 		None: (when self.header is False).
 		"""
-		# ... Your code here ...
 		if self.header:
 			return self.data[0]
 		return None 
