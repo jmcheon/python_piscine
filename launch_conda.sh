@@ -25,7 +25,7 @@ function when_conda_exist {
 		printf "\e[31mKO\e[0m\n"
 		printf "\e[33mCreating 42AI environnment:\e[0m\n"
 		conda update -n base -c defaults conda -y
-		conda create --name 42AI-$USER python=3.7 jupyter numpy pandas pycodestyle -y
+		conda create --name 42AI-$USER python=3.7 jupyter numpy pandas pycodestyle matplotlib -y
 	fi
 }
 
