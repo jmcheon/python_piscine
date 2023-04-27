@@ -2,8 +2,6 @@ import numpy as np
 from ImageProcessor import ImageProcessor
 from PIL import Image
 
-
-
 class ColorFilter:
 	"""
 	invert ,to_blue, to_green, to_red, to_celluloid(array), to_grayscale
@@ -34,8 +32,12 @@ class ColorFilter:
 			return None
 		inverted_array = np.copy(array)
 		# to invert only RGB channels
-		# RGBA image[top:bottom, left:right, red:green:blue:alpha]
-		inverted_array[:, :, :3] = 1 - inverted_array[:, :, :3]
+		if array.shape[-1] == 4:
+			# RGBA image[top:bottom, left:right, red:green:blue:alpha]
+			inverted_array[:, :, :3] = 1 - inverted_array[:, :, :3]
+		else:
+			# RGB image[top:bottom, left:right, red:green:blue]
+			inverted_array[:, :, :] = 1 - inverted_array[:, :, :]
 		return inverted_array
 
 	def to_blue(self, array):
@@ -111,7 +113,8 @@ class ColorFilter:
 			return None
 		image = np.copy(array)
 		filtered_array = image - (self.to_blue(image) + self.to_green(image))
-		filtered_array[..., [3]] = image[..., [3]]
+		if array.shape[-1] == 4:
+			filtered_array[..., [3]] = image[..., [3]]
 		return filtered_array
 
 	def to_celluloid(self, array):
@@ -152,8 +155,8 @@ class ColorFilter:
 		◦ Authorized operators: *,/, =.
 		
 		Applies a grayscale filter to the image received as a numpy array.
-		For filter = ’mean’/’m’: performs the mean of RBG channels.
-		For filter = ’weight’/’w’: performs a weighted mean of RBG channels.
+		For filter = 'mean'/'m': performs the mean of RBG channels.
+		For filter = 'weight'/'w': performs a weighted mean of RBG channels.
 		Args:
 		-----
 		array: numpy.ndarray corresponding to the image.
@@ -172,39 +175,60 @@ class ColorFilter:
 			return None
 		if filter in ['m', 'mean']:
 			image = np.copy(array)
-			#gray_vals = image.sum(axis=-1) / image.shape[-1]
 			# to express only height, width from height, width, channels
 			gray_vals = image[...,:3].sum(axis=-1) / image[...,:3].shape[-1]
-			print(gray_vals.shape)
-			#print(image[..., :3].sum(axis=-1))
-			#print(image[..., :3].shape)
-			print(np.newaxis)
 			filtered_array = np.broadcast_to(gray_vals[..., np.newaxis], image.shape)
 			image = np.copy(filtered_array)
-			image[..., [3]] = array[..., [3]]
+			if array.shape[-1] == 4:
+				image[..., [3]] = array[..., [3]]
 			return image 
 		elif filter in ['w', 'weight']:
 			image = np.copy(array)
+			weight = np.array(kwargs["weights"])
+			gray_vals = (image[...,:3] * weight).sum(axis=-1)
+			filtered_array = np.broadcast_to(gray_vals[..., np.newaxis], image.shape)
+			image = np.copy(filtered_array)
+			if array.shape[-1] == 4:
+				image[..., [3]] = array[..., [3]]
 			return image
 		else:
 			return None
 
+def ex1():
+	#image = Image.open("./42AI.png")
+	#print(image.mode)
+	arr = imp.load("./42AI.png")
+	for f in [cf.to_red, cf.to_green, cf.to_blue, cf.invert, cf.to_celluloid]:
+		imp.display(f(arr))
+
+	im = cf.to_grayscale(arr, "m")
+	imp.display(im)
+	#with np.printoptions(threshold=np.inf):
+	#	print(im[190, 190])
+	
+	im = cf.to_grayscale(arr, "w", weights = [0.2126, 0.7152, 0.0722])
+	imp.display(im)
+	#with np.printoptions(threshold=np.inf):
+	#	print(im[190, 190])
+
+def ex2():
+	#image = Image.open("./elon_canaGAN.png")
+	#print(image.mode)
+	arr = imp.load("./elon_canaGAN.png")
+	for f in [cf.to_red, cf.to_green, cf.to_blue, cf.invert, cf.to_celluloid]:
+		imp.display(f(arr))
+
+	im = cf.to_grayscale(arr, "m")
+	imp.display(im)
+	#with np.printoptions(threshold=np.inf):
+	#	print(im[190, 190])
+	
+	im = cf.to_grayscale(arr, "w", weights = [0.2126, 0.7152, 0.0722])
+	imp.display(im)
+	#with np.printoptions(threshold=np.inf):
+	#	print(im[190, 190])
 
 if __name__ == "__main__":
 	imp = ImageProcessor()
-	#arr = imp.load("./42AI.png")
-	arr = imp.load("./elon_canaGAN.png")
-	#image = Image.open("./elon_canaGAN.png")
-	#print(image.mode)
-	#with np.printoptions(threshold=np.inf):
-	#	print(arr)
-	#print("\n=====================================\n")
 	cf = ColorFilter()
-	#arr = cf.invert(arr)
-	#print(arr)
-	#arr = cf.to_blue(arr)
-	#arr = cf.to_green(arr)
-	#arr = cf.to_red(arr)
-	#arr = cf.to_celluloid(arr)
-	arr = cf.to_grayscale(arr, 'm')
-	imp.display(arr)
+	ex2()
