@@ -1,4 +1,5 @@
 import numpy as np
+from ImageProcessor import ImageProcessor
 
 class ColorFilter:
 	"""
@@ -26,6 +27,12 @@ class ColorFilter:
 		-------
 		This function should not raise any Exception.
 		"""
+		if not isinstance(array, np.ndarray):
+			print("none")
+			return None
+		inverted_array = np.copy(array)
+		inverted_array[:, :, :3] = 1 - inverted_array[:, :, :3]
+		return inverted_array
 
 	def to_blue(self, array):
 		"""
@@ -127,3 +134,15 @@ class ColorFilter:
 		-------
 		This function should not raise any Exception.
 		"""
+
+if __name__ == "__main__":
+	imp = ImageProcessor()
+	#arr = imp.load("./42AI.png")
+	arr = imp.load("./elon_canaGAN.png")
+	#with np.printoptions(threshold=np.inf):
+	#	print(arr)
+	#print("\n=====================================\n")
+	cf = ColorFilter()
+	#arr = cf.invert(arr)
+	#print(arr)
+	imp.display(arr)
