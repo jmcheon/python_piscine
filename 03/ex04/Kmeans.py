@@ -27,16 +27,15 @@ class KmeansClustering:
 		# randomly select n centroids from the dataset
 		selected_numbers = np.random.choice(X.shape[0], self.ncentroid, replace=False)
 		self.centroids = X[selected_numbers, :]
-		print("X.shape:", X.shape)
-		print("array of randomly selected numbers:", selected_numbers)
-		print(self.centroids)
-		print("self.centroids.shape:", self.centroids.shape)
-		print("self.centroids[:, np.newaxis, :].shape:", self.centroids[:, np.newaxis, :].shape)
+	#	print("X.shape:", X.shape)
+	#	print("array of randomly selected numbers:", selected_numbers)
+	#	print(self.centroids)
+	#	print("self.centroids.shape:", self.centroids.shape)
+	#	print("self.centroids[:, np.newaxis, :].shape:", self.centroids[:, np.newaxis, :].shape)
 
 
 		# loop through the max iterations to update the centroids
 		for i in range(self.max_iter):
-
 			# https://towardsdatascience.com/3-distances-that-every-data-scientist-should-know-59d864e5030a
 			# Calculate the Euclidean distance between each point and centroid
 			#distances = np.sqrt(np.sum((X - self.centroids[:, np.newaxis, :])**2, axis=2))
@@ -44,11 +43,10 @@ class KmeansClustering:
 
 			# Calculate the L1 distance between each point and centroid
 			distances = np.sum(np.abs(X - self.centroids[:, np.newaxis, :]), axis=2)
-			print("L1 distances:", distances.shape)
+			#print("L1 distances shape:", distances.shape)
 
-			# Assign each point to the closest centroid
 			clusters = np.argmin(distances, axis=0)
-			print("clusters:", clusters)
+			#print(clusters, clusters.shape)
 
 			# Update the centroids to the mean of each cluster
 			for j in range(self.ncentroid):
@@ -67,6 +65,14 @@ class KmeansClustering:
 		-------
 		This function should not raise any Exception.
 		"""
+		# Calculate the L1 distance between each point and centroid
+		distances = np.sum(np.abs(X - self.centroids[:, np.newaxis, :]), axis=2)
+		#print("L1 distances shape:", distances.shape)
+
+		# Assign each point to the closest centroid
+		clusters = np.argmin(distances, axis=0)
+		#print(clusters, clusters.shape)
+
 def check_validation():
 	parser = argparse.ArgumentParser(description='K-Means Clustering')
 	parser.add_argument('args', nargs='*')
@@ -107,3 +113,4 @@ if __name__ == "__main__":
 			else:
 				X = np.array(reader.getdata())
 				k.fit(X.astype(float))
+				print(k.centroids)
