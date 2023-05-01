@@ -1,7 +1,7 @@
-import sys
+import sys, os
 import argparse
 import numpy as np
-from csvreader import CsvReader
+import matplotlib.pyplot as plt
 
 class KmeansClustering:
 
@@ -72,6 +72,7 @@ class KmeansClustering:
 		# Assign each point to the closest centroid
 		clusters = np.argmin(distances, axis=0)
 		#print(clusters, clusters.shape)
+		return (clusters)
 
 def check_validation():
 	parser = argparse.ArgumentParser(description='K-Means Clustering')
@@ -106,11 +107,30 @@ if __name__ == "__main__":
 		filepath = kwargs['filepath']
 		ncentroid = kwargs['ncentroid']
 		max_iter = kwargs['max_iter']
-		k = KmeansClustering(max_iter=max_iter, ncentroid=ncentroid)
-		with CsvReader(filepath, header=True) as reader:
-			if reader == None:
-				print("File is corrupted or missing")
-			else:
-				X = np.array(reader.getdata())
-				k.fit(X.astype(float))
-				print(k.centroids)
+
+		if not os.path.isfile(filepath):
+			print("File is corrupted or missing")
+			exit()
+		else:
+			k = KmeansClustering(max_iter=max_iter, ncentroid=ncentroid)
+			data = np.loadtxt(filepath, delimiter=',', skiprows=1)
+			X = np.array(data)
+
+			k.fit(X.astype(float))
+			clusters = k.predict(X.astype(float))
+
+			#print("clusters:", clusters, "clusters.shape:", clusters.shape)
+			#print(k.centroids)
+			fig, axs = plt.subplots(1, 2)
+			axs[0].scatter(X[:, 0] , X[:, 1])
+			axs[0].set_title("before k-means")
+			axs[0].set_ylabel("height")
+
+			# plotting the results:
+			for i in np.unique(clusters):
+			    axs[1].scatter(X[clusters == i , 0] , X[clusters == i , 1] , label = i)
+			axs[1].scatter(k.centroids[:,0] , k.centroids[:,1] , s = 80, color = 'k')
+			axs[1].set_title("after k-means")
+			axs[1].set_ylabel("height")
+			axs[1].legend()
+			plt.show()
