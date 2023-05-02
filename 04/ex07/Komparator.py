@@ -38,13 +38,13 @@ class Komparator:
 		"""
 		if not self.check_validation("box", categorical_var, numerical_var):
 			return
-		categories = self.data[categorical_var].unique()
+		categories = self.data[categorical_var].dropna().unique()
 		boxplot_data = {}
 		for category in categories:
 			subset = self.data[self.data[categorical_var] == category][numerical_var]
 			boxplot_data[category] = subset
 		boxplot_df = pd.DataFrame(boxplot_data)
-		boxplot_df.plot.box()
+		boxplot_df.plot.box(figsize=(10, 6))
 		plt.title(f"Box plot of {numerical_var} for each category of {categorical_var}")
 		plt.show()
 
@@ -55,10 +55,10 @@ class Komparator:
 		"""
 		if not self.check_validation("density", categorical_var, numerical_var):
 			return
-		categories = self.data[categorical_var].unique()
+		categories = self.data[categorical_var].dropna().unique()
 		for category in categories:
 			subset = self.data[self.data[categorical_var] == category][numerical_var]
-			subset.plot(kind='density', label=category, legend=True)
+			subset.plot(kind='density', figsize=(10, 6), label=category, legend=True)
 		plt.xlabel(numerical_var)
 		plt.title(f"Density curve of {numerical_var} for each category of {categorical_var}")
 		plt.show()
@@ -70,7 +70,7 @@ class Komparator:
 		"""
 		if not self.check_validation("histogram", categorical_var, numerical_var):
 			return
-		categories = self.data[categorical_var].unique()
+		categories = self.data[categorical_var].dropna().unique()
 		colors = ['blue', 'orange', 'green', 'red', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan']
 		fig, ax = plt.subplots(figsize=(10, 6))
 		for i, category in enumerate(categories):
@@ -81,9 +81,18 @@ class Komparator:
 		plt.title(f"Histogram plot of {numerical_var} for each category of {categorical_var}")
 		plt.show()
 
+def compare_plots(categorical_var, numerical_var):
+	komparator.compare_box_plots(categorical_var, numerical_var)
+	komparator.density(categorical_var, numerical_var)
+	komparator.compare_histograms(categorical_var, numerical_var)
+
+def ex1():
+	komparator.compare_box_plots('Medal', 'Age')
+	komparator.density('Medal', 'Weight')
+	komparator.compare_histograms('Medal', 'Height')
+
 if __name__ == "__main__":
 	data = pd.read_csv('../athlete_events.csv')
 	komparator = Komparator(data)
-	komparator.compare_box_plots('Sex', 'Height')
-	komparator.density('Sex', 'Height')
-	komparator.compare_histograms('Sex', 'Height')
+	compare_plots('Sex', 'Height')
+	#ex1()
