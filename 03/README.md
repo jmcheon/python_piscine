@@ -1,4 +1,4 @@
-# Python Module 03
+# Python Module 03 - Numpy
 
 > ***Summary: Today you will learn how to use the Python library that will allow you to manipulate multidimensional arrays (vectors) and perform complex mathematical operations on them.***
 
