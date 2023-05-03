@@ -1,4 +1,4 @@
-# Python Module 00
+# Python Module 00 - Basic 1
 
 > ***Summary : The goal of the module is to get started with the Python language***
 
