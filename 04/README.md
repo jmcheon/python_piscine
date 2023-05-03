@@ -1,4 +1,4 @@
-# Python Module 04
+# Python Module 04 - Pandas
 
 > ***Summary: Today you will learn how to use a Python library that will allow you to manipulate dataframes.***
 
