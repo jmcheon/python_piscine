@@ -1,4 +1,4 @@
-# Python Module 02
+# Python Module 02 - Basic 3
 
 > ***Summary: Let’s continue practicing with more advanced Python programming exercises. Destination: Decorators, lambda, context manager and build package.***
 
