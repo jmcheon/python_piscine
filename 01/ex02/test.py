@@ -70,6 +70,7 @@ if __name__ == "__main__":
 	v = Vector(4)
 	v2 = Vector([[1.0], [1.0], [1.0], [1.0]])
 	print((v + v2).values)
+	print((1 + v2))
 	print((v - v2).values != (v2 - v).values)
 
 	# multiplication by scalar

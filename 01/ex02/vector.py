@@ -58,9 +58,9 @@ class Vector:
 	# add & radd : only vectors of same shape.
 	def __add__(self, other):
 		if not isinstance(other, Vector):
-			raise TypeError("Invalid input: dot product requires a Vector object.")
+			raise TypeError("Invalid input: addtion requires a Vector object.")
 		if self.shape != other.shape:
-			raise TypeError("Invalid input: dot product requires a Vector of same shape.")
+			raise TypeError("Invalid input: addtion requires a Vector of same shape.")
 		result = []
 		for i in range(self.shape[0]):
 			row = []
@@ -75,9 +75,9 @@ class Vector:
 	# sub & rsub: only vectors of same shape.
 	def __sub__(self, other):
 		if not isinstance(other, Vector):
-			raise TypeError("Invalid input: dot product requires a Vector object.")
+			raise TypeError("Invalid input: subtraction requires a Vector object.")
 		if self.shape != other.shape:
-			raise TypeError("Invalid input: dot product requires a Vector of same shape.")
+			raise TypeError("Invalid input: subtraction requires a Vector of same shape.")
 		result = []
 		for i in range(self.shape[0]):
 			row = []
@@ -96,7 +96,7 @@ class Vector:
 		if not any(isinstance(scalar, scalar_type) for scalar_type in [int, float, complex]):
 			raise TypeError("Invalid type of scalar value.")
 		if scalar == 0:
-			raise ValueError("Can't not divide by 0.")
+			raise ValueError("Can't divide by 0.")
 		result = []
 		for i in range(self.shape[0]):
 			row = []
