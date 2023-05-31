@@ -21,7 +21,7 @@ class TinyStatistician:
 	#	print("middle index:", middle)
 	#	print("=====================================\n")
 		if len(numbers) % 2 == 0:
-			return float(numbers[middle - 1])
+			return float((numbers[middle - 1] + numbers[middle]) / 2)
 		else:
 			return float(numbers[middle])
 
