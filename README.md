@@ -1,6 +1,6 @@
-# Python Module
+# Python Piscine
 
-> ***Summary : This is Bootcamp Python created by the Paris-based student organization 42 AI.***
+> ***Summary : This is Python Piscine(Bootcamp) created by the Paris-based student organization 42AI.***
 
 | Module |  Title  |                         Description                          |
 | :----: | :-----: | :----------------------------------------------------------: |
